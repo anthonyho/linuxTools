@@ -1,0 +1,97 @@
+#! /usr/bin/env python
+#
+#  PYPLOT A Linux utility to plot graphs directly from shell using Matplotlib
+#
+#  SYNOPSIS: 
+#    pyplot [-naoxytlp] [file ...]
+#
+#  DESCRIPTION: 
+#    -n --nodisplay                                   Save plot only and show no display
+#    -a --ai                                          Export graph to Adobe Illustrator
+#    -o outputFile.png --output=outputFile.png        Save plot to outputFile.png
+#    -x "x axis" --xAxis="x axis"                     Name of x axis
+#    -y "y axis" --yAxis="y axis"                     Name of y axis
+#    -t "Title of plot" --title="title of plot"       Title of the plot
+#    -l "label 1;label 2" --label="label 1;label 2"   Labeling the data sets. Separate by ":"
+#    -p [1..10] --pos=[1..10]                         Position of the legend. Refer to Pylab user guide
+#
+#  v2, Anthony Ho, 10/22/2014
+
+
+# Importing libraries
+from os import system
+import argparse
+from numpy import loadtxt
+from matplotlib.pyplot import figure, plot, legend, title, xlabel, ylabel, show
+
+
+def main():
+
+
+    ## Getting options and arguments from command line
+    parser = argparse.ArgumentParser("A Linux utility to plot graphs directly from shell using Matplotlib")
+    parser.add_argument("inputFiles",help="Input files containing data to be plotted",nargs="+")
+    parser.add_argument("-n", "--nodisplay", help="Save plot only and show no display", action="store_true")
+    parser.add_argument("-a", "--ai", help="Export graph to Adobe Illustrator", action="store_true")
+    parser.add_argument("-o", "--output", help="Save plot to output file")
+    parser.add_argument("-x", "--xAxis", help="Name of x axis")
+    parser.add_argument("-y", "--yAxis", help="Name of y axis")
+    parser.add_argument("-t", "--title", help="Title of the plot")
+    parser.add_argument("-l", "--label", help="Labeling the data sets. Separate by :")
+    parser.add_argument("-p", "--pos", type=int, choices=range(1,11), default="2", help="Position of the legend (1-10). Refer to Pylab user guide")
+    args = parser.parse_args()
+
+
+    ## Verifying if the number of labels matches the number of files
+    if not (args.label is None):
+        listOfLabels = args.label.split(':')
+        if len(listOfLabels)!=len(args.inputFiles):
+            print "Number of labels and number of files must match!"
+            return 1
+
+
+    ## Loading data
+    if not (args.label is None): # If user specifies labels
+        datalist = [ (loadtxt(file), label) for file, label in zip(args.inputFiles, listOfLabels)]
+    else: # If user doesn't specifies labels
+        datalist = [ loadtxt(file) for file in args.inputFiles ]
+
+
+    ## Plotting
+    fig = figure()
+    fig.set_facecolor('white')
+    ax = fig.add_subplot(111)
+ 
+    if not (args.label is None): # If user specifies labels
+        for data, label in datalist:
+            plot(data[:,0], data[:,1], label=label )
+            legend(loc=int(args.pos))
+    else: # If user doesn't specifies labels
+        for data in datalist:
+            plot(data[:,0], data[:,1])
+
+
+    ## Dealing with options
+    if args.title: # Making title
+        title(args.title)
+    if args.xAxis: # Making x axis
+        xlabel(args.xAxis)
+    if args.yAxis: # Making y axis
+        ylabel(args.yAxis)
+    if args.output: # If output file is enabled
+        fig.savefig(args.output)
+    elif args.nodisplay: # Save output if nodisplay is enabled
+        fig.savefig("plot.eps")
+    if args.ai: # If export to AI
+        fig.savefig("temp.eps")
+        system("open -a /Applications/Adobe\ Illustrator\ CS4/Adobe\ Illustrator.app/ temp.eps")
+
+    if not args.nodisplay and not args.ai:
+        show()
+
+    return 1
+
+
+## Main
+if __name__ == "__main__":
+    main()

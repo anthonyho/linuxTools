@@ -1,0 +1,30 @@
+#! /usr/bin/env python
+#
+#  A Linux utility to strip all spaces in a string
+#
+#  SYNOPSIS:
+#    > stripSpaces "ggta ctga" "tgac"
+#    > ggtactgatgac
+#
+#  v1, Anthony Ho, 1/29/2014
+
+
+# Importing libraries
+from sys import argv
+
+def main(argv):
+    
+    # Reading the system argument as argvList 
+    argvList = argv
+
+    # Converting the list of arguments into a single string of characters
+    stringFromList = ''.join(argvList)
+
+    # Removing all the spaces
+    stringNoSpace = stringFromList.replace(" ","")
+
+    # Printing out the final string without spaces
+    print stringNoSpace
+
+if __name__ == "__main__":
+    main(argv[1:])
