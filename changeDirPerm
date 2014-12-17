@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# Script to change the permission of a directory and its files recursively
+# 
+# Default new permission settings:
+# "drwx******" -> "drwxr-xr-x" (755)
+# "-rwx******" -> "-rwxr-xr-x" (755)
+# "-rw-******" -> "-rw-r--r--" (644)
+#
+# Anthony Ho, 12/16/2014
+
+# Usage
+usage()
+{
+    cat <<EOF
+usage: $0 options
+
+This script changes the permission of a directory and its files recursively.
+
+Default new permission settings:
+   "drwx******" -> "drwxr-xr-x" (755)
+   "-rwx******" -> "-rwxr-xr-x" (755)
+   "-rw-******" -> "-rw-r--r--" (644)
+
+OPTIONS:
+   -h      Show this message
+   -d      New permission for directories
+   -e      New permission for executable files
+   -f      New permission for regular files
+EOF
+}
+
+# Default new permissions
+dirPermission="755"
+executablesPermission="755"
+regularFilesPermission="644"
+
+# Getting options
+while getopts “hd:f:e:” OPTION
+do
+    case $OPTION in
+	h)
+	    usage
+	    exit 1
+	    ;;
+	d)
+	    dirPermission=$OPTARG
+	    ;;
+	e)
+	    executablesPermission=$OPTARG
+	    ;;
+	f)
+	    regularFilesPermission=$OPTARG
+	    ;;	
+    esac
+done
+
+shift $((OPTIND-1)); OPTIND=1
+
+# Changing permissions
+for dir
+do 
+    find $dir -type d -exec chmod $dirPermission {} \;
+    find $dir -type f -executable -exec chmod $executablesPermission {} \;
+    find $dir -type f -not -executable -exec chmod $regularFilesPermission {} \;
+done
