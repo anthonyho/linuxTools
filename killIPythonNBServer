@@ -8,7 +8,7 @@
 
 
 # Kill the ipython notebook server on Greendragon
-ssh $greendragon 'kill $(ps aux | grep -E "$user.*[i]python notebook --profile=nbserver" | awk '\''{print $2}'\'')'
+ssh $greendragon 'kill $(ps aux | grep -E "$user.*[i]python.*--port=8889" | awk '\''{print $2}'\'')'
 
 # Kill the SSH tunnel for ipython notebook
 kill $(ps aux | grep -E "$user.*[s]sh -N -f -L localhost:8888:localhost:8889" | awk '{print $2}')

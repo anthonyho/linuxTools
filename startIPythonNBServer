@@ -7,8 +7,12 @@
 # Last update 2/20/2015
 
 
+# Before you run this, you will have set the environmental variable $greendragon as user@greendragon.stanford.edu
+
 # Start ipython notebook server on Greendragon
-ssh $greendragon 'nohup ipython notebook --profile=nbserver &> /dev/null < /dev/null &'
+ssh $greendragon 'nohup ipython notebook --pylab=inline --no-browser --port=8889 &> /dev/null < /dev/null &'
 
 # Start SSH tunnel for port forwarding
 ssh -N -f -L localhost:8888:localhost:8889 $greendragon
+
+# Now you can access ipython notebook remotely via http://localhost:8888/ on your favorite web browser
