@@ -9,8 +9,8 @@
 #  nohup ./myscript > ./myscript.out 2> ./myscript.err < /dev/null &
 #
 # Anthony Ho, ahho@stanford.edu, 1/15/2015
-# Last update 1/15/2015
+# Last update 2/20/2015
 
 script_path_base="${1%.*}"
 
-nohup $1 > ${script_path_base}".out" 2> ${script_path_base}".err" < /dev/null &
+nohup ${*:1} > ${script_path_base}".out" 2> ${script_path_base}".err" < /dev/null &
