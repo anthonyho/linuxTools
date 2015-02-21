@@ -7,4 +7,4 @@
 # Last update 2/20/2015
 
 kill $(ps aux | grep "[i]python notebook --profile=nbserver" | awk '{print $2}')
-kill $(ps aux | grep -E "$user.*[s]sh -N -f -L localhost:8888:localhost:8889 | awk '{print $2}")
+kill $(ps aux | grep -E "$user.*[s]sh -N -f -L localhost:8888:localhost:8889" | awk '{print $2}')
