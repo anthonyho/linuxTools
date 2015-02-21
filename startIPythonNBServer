@@ -1,10 +1,14 @@
 #!/bin/bash
 #
-# Linux tool start ipython notebook server on Greendragon and 
+# Linux tool to start ipython notebook server on Greendragon and 
 # start a SSH tunnel for port forwarding
 #
 # Anthony Ho, ahho@stanford.edu, 2/20/2015
 # Last update 2/20/2015
 
+
+# Start ipython notebook server on Greendragon
 ssh $greendragon 'nohup ipython notebook --profile=nbserver &> /dev/null < /dev/null &'
+
+# Start SSH tunnel for port forwarding
 ssh -N -f -L localhost:8888:localhost:8889 $greendragon
