@@ -4,15 +4,22 @@
 #
 # Usage:
 #   removeLastLineInCurrentDir file1 file2 file3 ...
-#
-# For Mac OS
 # 
 # Anthony Ho,  ahho@stanford.edu, 9/15/2014
 # Last update 2/26/2015
 
 files=$@
 
-for file in $files
-do
-    sed -i '' -e '$ d' $file
-done
+if [ "$(uname)" == "Darwin" ]  # Mac
+then
+    for file in $files
+    do
+	sed -i '' -e '$ d' $file
+    done
+elif [ "$(uname)" == "Linux" ]  # Linux
+then
+    for file in $files
+    do
+	sed -i '$ d' $file
+    done
+fi
