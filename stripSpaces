@@ -2,15 +2,16 @@
 #
 # Utility to strip all spaces in a string
 #
-# SYNOPSIS:
+# Usage:
 #   > stripSpaces "ggta ctga" "tgac"
 #   > ggtactgatgac
 #
 # Anthony Ho, ahho@stanford.edu, 1/29/2014
-# Last update 1/29/2014
+# Last update 2/26/2014
 
 
 from sys import argv
+
 
 def main(argv):
 
@@ -21,7 +22,7 @@ def main(argv):
     stringFromList = ''.join(argvList)
 
     # Removing all the spaces
-    stringNoSpace = stringFromList.replace(' ','')
+    stringNoSpace = stringFromList.replace(' ', '')
 
     # Printing out the final string without spaces
     print stringNoSpace

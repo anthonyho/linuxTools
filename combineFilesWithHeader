@@ -4,7 +4,7 @@
 # only one line of header from the first file
 #
 # Usage: 
-#   combineFiles.sh file1 file2 file3 file4 ... > combinedFile
+#   combineFilesWithHeader file1 file2 file3 file4 ... > combinedFile
 #
 # Anthony Ho, ahho@stanford.edu, 2/26/2015
 # Last update 2/26/2015
