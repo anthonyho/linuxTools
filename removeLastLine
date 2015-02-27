@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Remove the last line of the given files
+#
+# Usage:
+#   removeLastLineInCurrentDir file1 file2 file3 ...
+#
+# For Mac OS
+# 
+# Anthony Ho,  ahho@stanford.edu, 9/15/2014
+# Last update 2/26/2015
+
+files=$@
+
+for file in $files
+do
+    sed -i '' -e '$ d' $file
+done
