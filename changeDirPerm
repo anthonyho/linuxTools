@@ -7,7 +7,8 @@
 # "-rwx******" -> "-rwxr-xr-x" (755)
 # "-rw-******" -> "-rw-r--r--" (644)
 #
-# Anthony Ho, 12/16/2014
+# Anthony Ho, ahho@stanford.edu, 12/16/2014
+# Last update 12/16/2014
 
 # Usage
 usage()
