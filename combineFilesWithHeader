@@ -15,4 +15,4 @@ file_array=( $@ )
 
 # Output header of the first file
 head -n 1 ${file_array[0]}
-awk 'FNR > 1' ${file_array[*]}
+awk 'FNR > 1' ${file_array[@]}
