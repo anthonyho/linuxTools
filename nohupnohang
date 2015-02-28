@@ -3,14 +3,16 @@
 # Linux tool to nohup jobs and redirect all three I/O streams in a single command
 # 
 # Usage:
-#   nohupnohang ./myscript arg1 arg2 arg3 ...
+#   nohupnohang /path/to/myscript.sh arg1 arg2 arg3 ...
 # 
 # It will execute the following command:
-#  nohup ./myscript arg1 arg2 arg3 ... > ./myscript.out 2> ./myscript.err < /dev/null &
+#  nohup /path/to/myscript.sh arg1 arg2 arg3 ... > ./myscript.out 2> ./myscript.err < /dev/null &
 #
 # Anthony Ho, ahho@stanford.edu, 1/15/2015
-# Last update 2/26/2015
+# Last update 2/27/2015
 
-script_path_base="${1%.*}"
 
-nohup ${*:1} > ${script_path_base}".out" 2> ${script_path_base}".err" < /dev/null &
+script_filename=${1##*/}
+script_basename=${script_filename%.*}
+
+nohup ${@:1} > ${script_basename}".out" 2> ${script_basename}".err" < /dev/null &
