@@ -4,14 +4,14 @@
 # start a SSH tunnel for port forwarding
 #
 # Anthony Ho, ahho@stanford.edu, 2/20/2015
-# Last update 2/20/2015
+# Last update 6/23/2015
 
 
 # Before you run this, you will have set the environmental variable $greendragon as user@greendragon.stanford.edu
 # or replace $greendragon below as user@server.stanford.edu
 server=$greendragon
-remote_port=8889
-local_port=8888
+remote_port=8970
+local_port=8974
 
 
 # Start ipython notebook server on remote server
@@ -20,4 +20,4 @@ ssh $server "nohup ipython notebook --pylab=inline --no-browser --port=$remote_p
 # Start SSH tunnel for port forwarding
 ssh -N -f -L localhost:$local_port:localhost:$remote_port $server
 
-# Now you can access ipython notebook remotely via http://localhost:8888 on your favorite web browser
+# Now you can access ipython notebook remotely via http://localhost:$local_port on your favorite web browser
