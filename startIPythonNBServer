@@ -4,18 +4,28 @@
 # start a SSH tunnel for port forwarding
 #
 # Anthony Ho, ahho@stanford.edu, 2/20/2015
-# Last update 6/23/2015
+# Last update 6/24/2015
 
 
 # Before you run this, you will have set the environmental variable $greendragon as user@greendragon.stanford.edu
 # or replace $greendragon below as user@server.stanford.edu
+
+# Also you will have to set up a new ipython notebook profile as nbserver by running:
+#
+# $ ipython profile create nbserver
+#
+# Customize the ~/.ipython/profile_nbserver/ipython_notebook_config.py file as you wish, including adding a password
+
+# Also, if you are running this on GreenDragon, you should pick a different remote port from mine...
+
+# Define server and ports
 server=$greendragon
 remote_port=8970
 local_port=8974
 
 
 # Start ipython notebook server on remote server
-ssh $server "nohup ipython notebook --pylab=inline --no-browser --port=$remote_port &> /dev/null < /dev/null &"
+ssh $server "nohup ipython notebook --profile=nbserver --pylab=inline --no-browser --port=$remote_port &> /dev/null < /dev/null &"
 
 # Start SSH tunnel for port forwarding
 ssh -N -f -L localhost:$local_port:localhost:$remote_port $server
