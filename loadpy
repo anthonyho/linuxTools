@@ -1,0 +1,5 @@
+#!/bin/bash
+# Load python module on sherlock
+
+module reset
+module load py-scipystack/1.0_py27 py-scikit-learn/0.19.1_py27
